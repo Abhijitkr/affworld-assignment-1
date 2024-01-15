@@ -39,7 +39,7 @@ const register = async (req, res, next) => {
 };
 
 // Login Logic
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const userExists = await User.findOne({ email });
@@ -63,7 +63,8 @@ const login = async (req, res) => {
       res.status(400).json({ msg: "Invalid email or password" });
     }
   } catch (error) {
-    res.status(500).json({ msg: "Internal server error" });
+    // res.status(500).json({ msg: "Internal server error" });'
+    next(error);
   }
 };
 
