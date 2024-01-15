@@ -38,6 +38,15 @@ userSchema.pre("save", async function (next) {
   }
 });
 
+// JWT Authorization
+userSchema.methods.comparePassword = async function (password) {
+  try {
+    return bcrypt.compare(password, this.password);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // JWT(Json Web Token) Authentication
 userSchema.methods.generateToken = async function () {
   try {
