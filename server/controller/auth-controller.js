@@ -2,7 +2,7 @@ const User = require("../model/User");
 const bcrypt = require("bcrypt");
 
 // Registration Logic
-const register = async (req, res) => {
+const register = async (req, res, next) => {
   const { username, email, password, createdDate } = req.body;
   const currentDate = new Date();
 
@@ -33,7 +33,8 @@ const register = async (req, res) => {
       userId: newUser._id.toString(),
     });
   } catch (error) {
-    res.status(500).json({ msg: "Internal server error" });
+    // res.status(500).json({ msg: "Internal server error" });
+    next(error);
   }
 };
 

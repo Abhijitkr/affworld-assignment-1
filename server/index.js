@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const authRouter = require("./routes/auth-router");
 const secretRouter = require("./routes/secret-route");
+const errorMiddleware = require("./middleware/error-middleware");
 
 require("./db");
 
@@ -16,6 +17,8 @@ app.use("/api/secrets", secretRouter);
 app.use("/api", (req, res) => {
   res.send("Hello World");
 });
+
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`App is running at ${PORT}...`));
