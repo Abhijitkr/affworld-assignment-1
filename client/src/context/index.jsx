@@ -8,8 +8,20 @@ export default function GlobalState({ children }) {
     description: "",
   });
 
+  const [secretList, setSecretList] = useState([]);
+  const [pending, setPending] = useState(false);
+
   return (
-    <GlobalContext.Provider value={{ formData, setFormData }}>
+    <GlobalContext.Provider
+      value={{
+        formData,
+        setFormData,
+        secretList,
+        setSecretList,
+        pending,
+        setPending,
+      }}
+    >
       {children}
     </GlobalContext.Provider>
   );

@@ -1,9 +1,16 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "./context";
 import axios from "axios";
 
 function App() {
-  const { formData, setFormData } = useContext(GlobalContext);
+  const {
+    formData,
+    setFormData,
+    secretList,
+    setSecretList,
+    pending,
+    setPending,
+  } = useContext(GlobalContext);
 
   console.log(formData);
 
@@ -14,6 +21,7 @@ function App() {
     });
     const result = await response.data;
     console.log(result);
+    fetchListOfSecrets();
 
     if (result) {
       setFormData({
@@ -22,6 +30,21 @@ function App() {
       });
     }
   }
+
+  async function fetchListOfSecrets() {
+    setPending(true);
+    const response = await axios.get("http://localhost:5000/api/secrets");
+    const result = await response.data;
+    if (result && result.secrets && result.secrets.length) {
+      setSecretList(result.secrets);
+      setPending(false);
+    }
+    console.log(secretList);
+  }
+
+  useEffect(() => {
+    fetchListOfSecrets();
+  }, []);
 
   return (
     // <div>
@@ -99,33 +122,53 @@ function App() {
     //   </section>
     // </div>
     <div className="flex flex-col items-center gap-10 my-20">
-      <h1>Secret Input</h1>
-      <div className="flex flex-col gap-5 w-80">
-        <input
-          type="text"
-          className="p-2 border border-red-500"
-          placeholder="Secret Title"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-        />
-        <textarea
-          className="p-2 border border-red-500"
-          name=""
-          id=""
-          value={formData.description}
-          cols="30"
-          rows="4"
-          placeholder="Secret Description"
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
-        ></textarea>
-        <button
-          onClick={handleSaveSecret}
-          className="py-2 text-lg border border-red-500"
-        >
-          Submit Secret
-        </button>
+      <div className="flex flex-col gap-5">
+        <h1 className="text-center">Secret Input</h1>
+        <div className="flex flex-col gap-5 w-80">
+          <input
+            type="text"
+            className="p-2 border border-red-500"
+            placeholder="Secret Title"
+            value={formData.title}
+            onChange={(e) =>
+              setFormData({ ...formData, title: e.target.value })
+            }
+          />
+          <textarea
+            className="p-2 border border-red-500"
+            name=""
+            id=""
+            value={formData.description}
+            cols="30"
+            rows="4"
+            placeholder="Secret Description"
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
+          ></textarea>
+          <button
+            onClick={handleSaveSecret}
+            className="py-2 text-lg border border-red-500"
+          >
+            Submit Secret
+          </button>
+        </div>
+      </div>
+      <div>
+        <h1>Secret List</h1>
+        {pending ? (
+          <h1>Loading Secrets Please wait..</h1>
+        ) : (
+          <div className="my-10">
+            {secretList.map((secret) => (
+              <div key={secret._id} className="p-3 my-5 border border-red-500">
+                <h3>Anonymous User</h3>
+                <h5>{secret.title}</h5>
+                <p>{secret.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

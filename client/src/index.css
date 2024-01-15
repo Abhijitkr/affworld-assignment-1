@@ -6,4 +6,10 @@
   h1 {
     @apply text-5xl font-bold;
   }
+  h3 {
+    @apply text-2xl font-bold;
+  }
+  h5 {
+    @apply text-xl font-bold;
+  }
 }
