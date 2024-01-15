@@ -43,7 +43,7 @@ const addSecret = async (req, res) => {
     return res.status(500).json({ message: e });
   }
 
-  return res.status(200).json({ newSecret });
+  return res.status(201).json({ newSecret });
 };
 
 //delete a blog
