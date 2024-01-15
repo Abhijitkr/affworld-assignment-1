@@ -42,6 +42,8 @@ function App() {
     console.log(secretList);
   }
 
+  //TODO: Adds Edit and Delete functionality
+
   useEffect(() => {
     fetchListOfSecrets();
   }, []);
