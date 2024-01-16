@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import Logout from "./components/Auth/Logout";
+import Protected from "./components/Auth/Protected";
 
 function App() {
   const { fetchListOfSecrets } = useContext(GlobalContext);
@@ -90,7 +91,14 @@ function App() {
     // </div>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <Protected>
+              <Home />
+            </Protected>
+          }
+        />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/logout" element={<Logout />} />

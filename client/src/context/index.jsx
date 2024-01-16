@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const GlobalContext = createContext(null);
 
@@ -6,6 +6,7 @@ export default function GlobalState({ children }) {
   const [secretList, setSecretList] = useState([]);
   const [pending, setPending] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState({});
   let isLoggedIn = !!token;
 
   async function fetchListOfSecrets() {
@@ -27,6 +28,7 @@ export default function GlobalState({ children }) {
   //TODO: Adds Edit and Delete functionality
 
   function storeTokenInLS(userToken) {
+    setToken(userToken);
     return localStorage.setItem("token", userToken);
   }
 
@@ -34,6 +36,28 @@ export default function GlobalState({ children }) {
     setToken("");
     return localStorage.removeItem("token");
   }
+
+  const userAuthentication = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/user", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.userData);
+      }
+    } catch (error) {
+      console.error("Error fetching user data");
+    }
+  };
+
+  useEffect(() => {
+    userAuthentication();
+  }, [token]);
 
   return (
     <GlobalContext.Provider
@@ -46,6 +70,7 @@ export default function GlobalState({ children }) {
         storeTokenInLS,
         handleLogout,
         isLoggedIn,
+        user,
       }}
     >
       {children}

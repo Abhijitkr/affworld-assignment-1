@@ -20,7 +20,7 @@ const authMiddleware = async (req, res, next) => {
     req.userId = userData._id;
     next();
   } catch (error) {
-    return re.status(401).json({ msg: "Unauthorized, Invalid Token." });
+    return res.status(401).json({ msg: "Unauthorized, Invalid Token." });
   }
 };
 

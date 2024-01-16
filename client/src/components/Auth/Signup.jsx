@@ -31,7 +31,7 @@ export default function Signup() {
           email: "",
           password: "",
         });
-        navigate("/login");
+        navigate("/");
       } else {
         const error = await response.json();
         console.log(error.msg);
