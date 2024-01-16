@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +31,7 @@ export default function Signup() {
         console.log(error.msg);
       }
     } catch (error) {
-      console.log("register", error.message);
+      console.log("register", error);
     }
   }
 
@@ -43,7 +42,6 @@ export default function Signup() {
         onSubmit={handleSubmit((data, e) => {
           e.preventDefault();
           saveUser(data);
-          //   console.log(data);
         })}
       >
         <div>
