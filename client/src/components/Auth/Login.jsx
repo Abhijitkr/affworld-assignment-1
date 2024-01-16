@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -13,28 +12,6 @@ export default function Login() {
   } = useForm();
 
   async function checkUser(user) {
-    // try {
-    //   const response = await axios.post(
-    //     "http://localhost:5000/api/auth/login",
-    //     {
-    //       email: user.email,
-    //       password: user.password,
-    //     }
-    //   );
-    //   const result = await response.data;
-    //   console.log(result.response.data);
-
-    //   if (result) {
-    //     reset({
-    //       email: "",
-    //       password: "",
-    //     });
-    //     navigate("/");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
