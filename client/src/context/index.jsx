@@ -5,6 +5,8 @@ export const GlobalContext = createContext(null);
 export default function GlobalState({ children }) {
   const [secretList, setSecretList] = useState([]);
   const [pending, setPending] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  let isLoggedIn = !!token;
 
   async function fetchListOfSecrets() {
     setPending(true);
@@ -28,6 +30,11 @@ export default function GlobalState({ children }) {
     return localStorage.setItem("token", userToken);
   }
 
+  function handleLogout() {
+    setToken("");
+    return localStorage.removeItem("token");
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -37,6 +44,8 @@ export default function GlobalState({ children }) {
         setPending,
         fetchListOfSecrets,
         storeTokenInLS,
+        handleLogout,
+        isLoggedIn,
       }}
     >
       {children}

@@ -4,6 +4,7 @@ import { GlobalContext } from "./context";
 import Home from "./pages/Home";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
+import Logout from "./components/Auth/Logout";
 
 function App() {
   const { fetchListOfSecrets } = useContext(GlobalContext);
@@ -92,6 +93,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </BrowserRouter>
   );
