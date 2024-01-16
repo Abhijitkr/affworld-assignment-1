@@ -75,10 +75,7 @@ export default function SecretInput() {
             <p className="text-red-500">{errors.description.message}</p>
           )}
         </div>
-        <button
-          onClick={handleSaveSecret}
-          className="py-2 text-lg border border-red-500"
-        >
+        <button type="submit" className="py-2 text-lg border border-red-500">
           Submit Secret
         </button>
       </div>
