@@ -1,7 +1,9 @@
 import { useContext, useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { GlobalContext } from "./context";
-import SecretInput from "./components/Secrets/SecretInput";
-import SecretList from "./components/Secrets/SecretList";
+import Home from "./pages/Home";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   const { fetchListOfSecrets } = useContext(GlobalContext);
@@ -85,10 +87,13 @@ function App() {
     //     </div>
     //   </section>
     // </div>
-    <div className="flex flex-col items-center gap-10 my-20">
-      <SecretInput />
-      <SecretList />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
