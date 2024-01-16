@@ -68,4 +68,14 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login };
+// Send User Login
+const user = async (req, res) => {
+  try {
+    const userData = req.user;
+    res.status(200).json({ userData });
+  } catch (error) {
+    console.log(`User Error: ${error}`);
+  }
+};
+
+module.exports = { register, login, user };
