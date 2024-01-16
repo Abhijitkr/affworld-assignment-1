@@ -24,6 +24,10 @@ export default function GlobalState({ children }) {
 
   //TODO: Adds Edit and Delete functionality
 
+  function storeTokenInLS(userToken) {
+    return localStorage.setItem("token", userToken);
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -32,6 +36,7 @@ export default function GlobalState({ children }) {
         pending,
         setPending,
         fetchListOfSecrets,
+        storeTokenInLS,
       }}
     >
       {children}

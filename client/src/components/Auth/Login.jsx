@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../context";
+import { useContext } from "react";
 
 export default function Login() {
+  const { storeTokenInLS } = useContext(GlobalContext);
   const navigate = useNavigate();
 
   const {
@@ -21,6 +24,8 @@ export default function Login() {
         body: JSON.stringify(user),
       });
       if (response.ok) {
+        const data = await response.json();
+        storeTokenInLS(data.token);
         reset({
           email: "",
           password: "",

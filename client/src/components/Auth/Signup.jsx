@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../context";
 
 export default function Signup() {
+  const { storeTokenInLS } = useContext(GlobalContext);
+
   const navigate = useNavigate();
   const {
     register,
@@ -20,6 +24,8 @@ export default function Signup() {
         body: JSON.stringify(user),
       });
       if (response.ok) {
+        const data = await response.json();
+        storeTokenInLS(data.token);
         reset({
           username: "",
           email: "",
