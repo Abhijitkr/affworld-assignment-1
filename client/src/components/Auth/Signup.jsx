@@ -12,24 +12,27 @@ export default function Signup() {
   } = useForm();
 
   async function saveUser(user) {
-    const response = await axios.post(
-      "http://localhost:5000/api/auth/register",
-      {
-        username: user.username,
-        email: user.email,
-        password: user.password,
-      }
-    );
-    const result = await response.data;
-    console.log(result);
-
-    if (result) {
-      reset({
-        username: "",
-        email: "",
-        password: "",
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
       });
-      navigate("/login");
+      if (response.ok) {
+        reset({
+          username: "",
+          email: "",
+          password: "",
+        });
+        navigate("/login");
+      } else {
+        const error = await response.json();
+        console.log(error.msg);
+      }
+    } catch (error) {
+      console.log("register", error.message);
     }
   }
 

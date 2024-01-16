@@ -14,9 +14,9 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/secrets", secretRouter);
 
-app.use("/api", (req, res) => {
-  res.send("Hello World");
-});
+// app.use("/api", (req, res) => {
+//   res.send("Hello World");
+// });
 
 app.use(errorMiddleware);
 
