@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context";
 import { useContext } from "react";
 
@@ -15,6 +15,7 @@ export default function Login() {
   } = useForm();
 
   async function checkUser(user) {
+    // console.log(user);
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
@@ -67,6 +68,11 @@ export default function Login() {
           )}
         </div>
         <div>
+          <span>
+            <Link to="/forgotPassword">Forgot Password?</Link>
+          </span>
+        </div>
+        <div>
           <input
             type="password"
             id="password"
@@ -84,6 +90,11 @@ export default function Login() {
           {errors.password && (
             <p className="text-red-500">{errors.password.message}</p>
           )}
+        </div>
+        <div>
+          <span>
+            New user? <Link to="/signup">Register</Link>
+          </span>
         </div>
         <button type="submit">Login</button>
       </form>

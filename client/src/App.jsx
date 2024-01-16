@@ -6,6 +6,8 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import Logout from "./components/Auth/Logout";
 import Protected from "./components/Auth/Protected";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import ResetPassword from "./components/Auth/ResetPassword";
 
 function App() {
   const { fetchListOfSecrets } = useContext(GlobalContext);
@@ -99,6 +101,8 @@ function App() {
             </Protected>
           }
         />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/logout" element={<Logout />} />

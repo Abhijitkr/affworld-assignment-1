@@ -1,4 +1,6 @@
+const jwt = require("jsonwebtoken");
 const User = require("../model/User");
+const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
 
 // Registration Logic
@@ -78,4 +80,65 @@ const user = async (req, res) => {
   }
 };
 
-module.exports = { register, login, user };
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.json({ message: "User not found" });
+  }
+
+  const token = await user.generateToken();
+
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "webstar600@gmail.com",
+      pass: process.env.MAIL_PASSWORD,
+    },
+  });
+
+  const resetPageLink =
+    "http://localhost:5173/resetPassword?token=" + token + "&email=" + email;
+
+  var mailOptions = {
+    from: "Affworld Assignment 1",
+    to: email,
+    subject: "Reset your Password",
+    html: `<p>
+    Click <a href="${resetPageLink}">here</a> to Reset Password
+  </p>`,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      return res.json({ message: "Email Sent" });
+    }
+  });
+};
+
+const resetPassword = async (req, res) => {
+  const { email, token } = req.params;
+  const { password } = req.body;
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    console.log(decoded);
+    const saltRound = await bcrypt.genSalt(10);
+    const hash_password = await bcrypt.hash(password, saltRound);
+    const user = await User.findByIdAndUpdate(
+      { _id: decoded.userId },
+      { password: hash_password }
+    );
+    if (user) {
+      // console.log(user);
+      res.status(200).json({ msg: "Password reset successful" });
+    } else {
+      res.status(400).json({ msg: "User Not Found" });
+    }
+  } catch (error) {
+    return res.status(401).json({ msg: "Unauthorized, Invalid Token." });
+  }
+};
+
+module.exports = { register, login, user, forgotPassword, resetPassword };

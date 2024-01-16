@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context";
 
 export default function Signup() {
@@ -80,6 +80,7 @@ export default function Signup() {
             <p className="text-red-500">{errors.email.message}</p>
           )}
         </div>
+
         <div>
           <input
             type="password"
@@ -99,7 +100,11 @@ export default function Signup() {
             <p className="text-red-500">{errors.password.message}</p>
           )}
         </div>
-        <br />
+        <div>
+          <span>
+            Already a user? <Link to="/login">Login</Link>
+          </span>
+        </div>
         <button type="submit">Register</button>
       </form>
     </div>
