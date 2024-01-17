@@ -44,29 +44,28 @@ export default function SecretInput() {
 
   return (
     <div className="container px-4 md:px-6">
+      <div className="space-y-2 text-center ">
+        <h1 className="text-3xl font-bold tracking-tighter md:text-5xl">
+          Hi, {user.username}
+        </h1>
+        <h1 className="text-3xl font-bold tracking-tighter md:text-5xl">
+          Share Your Secret
+        </h1>
+        <p className="max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed ">
+          Share your secret with us. Your identity will remain anonymous.
+        </p>
+      </div>
       <form
-        className="flex flex-col items-center justify-center space-y-4 text-center"
+        className="flex flex-col items-center justify-center mt-5 space-y-4"
         noValidate
         onSubmit={handleSubmit((data, e) => {
           e.preventDefault();
           handleSaveSecret(data);
         })}
       >
-        <h1 className="text-3xl font-bold tracking-tighter md:text-5xl">
-          Hi, {user.username}
-        </h1>
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tighter md:text-5xl">
-            Share Your Secret
-          </h1>
-          <p className="max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed ">
-            Share your secret with us. Your identity will remain anonymous.
-          </p>
-        </div>
-        <div className="w-full max-w-md">
+        <div className="flex flex-col w-full max-w-md gap-2">
           <div>
             <input
-              className="w-full p-2 border border-gray-200 rounded-md "
               placeholder="Title of your secret..."
               type="text"
               id="title"
@@ -82,7 +81,6 @@ export default function SecretInput() {
           </div>
           <div>
             <textarea
-              className="w-full h-24 p-2 border border-gray-200 rounded-md "
               placeholder="Type your secret here..."
               id="description"
               {...register("description", {
@@ -97,7 +95,7 @@ export default function SecretInput() {
           </div>
 
           <button
-            className="w-full mt-4 bg-[#18181B] text-white py-2 rounded-md"
+            className="w-full mt-2 bg-[#18181B] text-white py-2 rounded-md"
             type="submit"
           >
             Share Secret
@@ -105,47 +103,5 @@ export default function SecretInput() {
         </div>
       </form>
     </div>
-    // <form
-    //   className="flex flex-col gap-5"
-    //   noValidate
-    //   onSubmit={handleSubmit((data, e) => {
-    //     e.preventDefault();
-    //     handleSaveSecret(data);
-    //   })}
-    // >
-    //   <h1 className="text-center">Secret Input</h1>
-    //   <div className="flex flex-col gap-5 w-80">
-    //     <div>
-    //       <input
-    //         type="text"
-    //         id="title"
-    //         className="w-full p-2 border border-red-500"
-    //         placeholder="Secret Title"
-    //         {...register("title", {
-    //           required: "Secret Title is required",
-    //         })}
-    //       />
-    //       {errors.title && (
-    //         <p className="text-red-500">{errors.title.message}</p>
-    //       )}
-    //     </div>
-    //     <div>
-    //       <textarea
-    //         className="w-full p-2 border border-red-500"
-    //         id="description"
-    //         placeholder="Secret Description"
-    //         {...register("description", {
-    //           required: "Secret Description is required",
-    //         })}
-    //       ></textarea>
-    //       {errors.description && (
-    //         <p className="text-red-500">{errors.description.message}</p>
-    //       )}
-    //     </div>
-    //     <button type="submit" className="py-2 text-lg border border-red-500">
-    //       Submit Secret
-    //     </button>
-    //   </div>
-    // </form>
   );
 }

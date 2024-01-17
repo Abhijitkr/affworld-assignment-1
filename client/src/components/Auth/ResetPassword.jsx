@@ -60,7 +60,7 @@ export default function ResetPassword() {
           <p className="text-red-500">{errors.password.message}</p>
         )}
       </div>
-      {/* <div>
+      <div>
         <input
           id="confirmPassword"
           {...register("confirmPassword", {
@@ -74,7 +74,7 @@ export default function ResetPassword() {
         {errors.confirmPassword && (
           <p className="text-red-500">{errors.confirmPassword.message}</p>
         )}
-      </div> */}
+      </div>
       <button type="submit">Reset Password</button>
     </form>
   );
