@@ -45,7 +45,7 @@ export default function ResetPassword() {
     }
   }
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-50 sm:px-6 lg:px-8">
+    <main className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-50 sm:px-6 lg:px-8">
       <div className="w-full max-w-md p-5 mx-auto bg-white shadow-lg">
         <div className="my-5 space-y-1 ">
           <div className="text-3xl font-bold">Reset Password</div>
@@ -122,6 +122,6 @@ export default function ResetPassword() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
