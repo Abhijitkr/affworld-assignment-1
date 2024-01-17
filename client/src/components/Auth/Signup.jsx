@@ -136,7 +136,7 @@ export default function Signup() {
           </button>
         </form>
         <div className="my-5 text-center">
-          <p className="text-gray-500 ">
+          <p className="text-gray-500">
             Already a user?{" "}
             <Link
               to="/login"

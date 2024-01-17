@@ -84,7 +84,7 @@ const forgotPassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
-    return res.json({ message: "User not found" });
+    return res.json({ error: "Email not found" });
   }
 
   const token = await user.generateToken();
