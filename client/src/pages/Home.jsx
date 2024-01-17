@@ -1,24 +1,28 @@
 import { NavLink } from "react-router-dom";
 import SecretInput from "../components/Secrets/SecretInput";
 import SecretList from "../components/Secrets/SecretList";
-import { useContext } from "react";
-import { GlobalContext } from "../context";
 
 export default function Home() {
-  const { user } = useContext(GlobalContext);
-
   return (
     <div className="flex flex-col items-center gap-10 my-20">
-      <nav className="p-2 bg-yellow-500">
+      <nav>
         <ul>
           <li>
-            <NavLink to="/logout">Logout</NavLink>
+            <NavLink
+              to="/logout"
+              className="w-full mt-4 p-4 bg-[#18181B] text-white py-2 rounded-md"
+            >
+              Logout
+            </NavLink>
           </li>
         </ul>
       </nav>
-      <h1>Hi, {user.username}</h1>
-      <SecretInput />
-      <SecretList />
+      <section className="py-12 pt-3 md:pd-12 lg:py-10">
+        <SecretInput />
+      </section>
+      <section className="w-full py-12 bg-gray-100 pt md:pd-12 lg:py-10 ">
+        <SecretList />
+      </section>
     </div>
   );
 }
