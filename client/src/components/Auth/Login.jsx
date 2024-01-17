@@ -1,10 +1,11 @@
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 export default function Login() {
   const { storeTokenInLS } = useContext(GlobalContext);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const {
@@ -31,13 +32,15 @@ export default function Login() {
           email: "",
           password: "",
         });
+        setError(null);
         navigate("/");
       } else {
-        const error = await response.json();
-        console.log(error.msg);
+        const err = await response.json();
+        setError(err.msg);
+        console.log(err);
       }
-    } catch (error) {
-      console.log("login", error);
+    } catch (e) {
+      console.log("login", e);
     }
   }
   return (
@@ -107,9 +110,10 @@ export default function Login() {
               {errors.password && (
                 <p className="text-red-500">{errors.password.message}</p>
               )}
+              {error && <p className="text-red-500">{error}</p>}
             </div>
             <button
-              className="w-full mt-2 bg-[#18181B] text-white py-2 rounded-md"
+              className="w-full mt-2 bg-[#18181B] hover:bg-[#2c2c31] text-white py-2 rounded-md"
               type="submit"
             >
               Login

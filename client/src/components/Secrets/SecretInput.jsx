@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 
 export default function SecretInput() {
   const { fetchListOfSecrets, user } = useContext(GlobalContext);
+  const [exhaustedSecret, setExhaustedSecret] = useState(null);
 
   const {
     register,
@@ -32,9 +33,11 @@ export default function SecretInput() {
           title: "",
           description: "",
         });
+        setExhaustedSecret(null);
         fetchListOfSecrets();
       } else {
         const error = await response.json();
+        setExhaustedSecret(error.message);
         console.log(error);
       }
     } catch (error) {
@@ -92,10 +95,13 @@ export default function SecretInput() {
                 {errors.description.message}
               </p>
             )}
+            {exhaustedSecret && (
+              <p className="mx-2 text-red-500 text-start">{exhaustedSecret}</p>
+            )}
           </div>
 
           <button
-            className="w-full mt-2 bg-[#18181B] text-white py-2 rounded-md"
+            className="w-full mt-2 bg-[#18181B] hover:bg-[#2c2c31] text-white py-2 rounded-md"
             type="submit"
           >
             Share Secret

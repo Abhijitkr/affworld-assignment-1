@@ -120,18 +120,17 @@ const forgotPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   const { email, token } = req.params;
-  const { password } = req.body;
+  const { newPassword } = req.body;
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    console.log(decoded);
     const saltRound = await bcrypt.genSalt(10);
-    const hash_password = await bcrypt.hash(password, saltRound);
+    const hash_password = await bcrypt.hash(newPassword, saltRound);
     const user = await User.findByIdAndUpdate(
       { _id: decoded.userId },
-      { password: hash_password }
+      { newPassword: hash_password }
     );
+    console.log(user);
     if (user) {
-      // console.log(user);
       res.status(200).json({ msg: "Password reset successful" });
     } else {
       res.status(400).json({ msg: "User Not Found" });

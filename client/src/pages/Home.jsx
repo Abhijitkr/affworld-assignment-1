@@ -10,7 +10,7 @@ export default function Home() {
           <li>
             <NavLink
               to="/logout"
-              className="w-full mt-4 p-4 bg-[#18181B] text-white py-2 rounded-md"
+              className="w-full mt-4 p-4 bg-[#18181B] hover:bg-[#2c2c31] text-white py-2 rounded-md "
             >
               Logout
             </NavLink>

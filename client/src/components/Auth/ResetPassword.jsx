@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function ResetPassword() {
   const query = new URLSearchParams(window.location.search);
   const token = query.get("token");
   const email = query.get("email");
-  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [passwordReset, setPasswordReset] = useState(false);
   const {
@@ -15,7 +14,6 @@ export default function ResetPassword() {
     formState: { errors },
   } = useForm();
   async function resetPassword(data) {
-    console.log(data);
     try {
       const response = await fetch(
         `http://localhost:5000/api/auth/resetPassword/${email}/${token}`,
@@ -29,7 +27,6 @@ export default function ResetPassword() {
       );
       if (response.ok) {
         const result = await response.json();
-        // navigate("/login");
 
         if (result.msg === "Password reset successful") {
           setPasswordReset(true);
@@ -37,9 +34,8 @@ export default function ResetPassword() {
         } else if (result.msg === "User Not Found") {
           setError(result.msg);
           setPasswordReset(false);
-        }
-        console.log("Success:", result);
-      } else console.log("Wrong token");
+        } else console.log("Success:", result);
+      } else console.log("Wrong token", response);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -63,13 +59,13 @@ export default function ResetPassword() {
             })}
           >
             <div className="space-y-2">
-              <label htmlFor="password">Email</label>
+              <label htmlFor="newPassword">New Password</label>
               <input
                 type="password"
-                id="password"
+                id="newPassword"
                 placeholder="New Password"
-                {...register("password", {
-                  required: "password is required",
+                {...register("newPassword", {
+                  required: "New Password is required",
                   pattern: {
                     value:
                       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
@@ -79,17 +75,18 @@ export default function ResetPassword() {
                   },
                 })}
               />
-              {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
+              {errors.newPassword && (
+                <p className="text-red-500">{errors.newPassword.message}</p>
               )}
             </div>
             <div>
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <input
                 id="confirmPassword"
                 {...register("confirmPassword", {
                   required: "confirm password is required",
                   validate: (value, formValues) =>
-                    value === formValues.password || "password not matching",
+                    value === formValues.newPassword || "password not matching",
                 })}
                 type="password"
                 placeholder="Confirm Password"
@@ -103,7 +100,7 @@ export default function ResetPassword() {
             )}
             {error && <p className="text-red-500">{error}</p>}
             <button
-              className="w-full mt-2 bg-[#18181B] text-white py-2 rounded-md"
+              className="w-full mt-2 bg-[#18181B] hover:bg-[#2c2c31] text-white py-2 rounded-md"
               type="submit"
             >
               Reset Password

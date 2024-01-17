@@ -26,7 +26,6 @@ export default function GlobalState({ children }) {
   }
 
   //TODO: Adds Edit and Delete functionality
-
   function storeTokenInLS(userToken) {
     setToken(userToken);
     return localStorage.setItem("token", userToken);

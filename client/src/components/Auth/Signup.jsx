@@ -130,7 +130,7 @@ export default function Signup() {
             </div>
             <button
               type="submit"
-              className="w-full mt-2 bg-[#18181B] text-white py-2 rounded-md"
+              className="w-full mt-2 bg-[#18181B] hover:bg-[#2c2c31] text-white py-2 rounded-md"
             >
               Sign Up
             </button>

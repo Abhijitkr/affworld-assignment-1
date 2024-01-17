@@ -27,7 +27,7 @@ export default function SecretList() {
             {secretList.map((secret) => (
               <div
                 key={secret._id}
-                className="p-4 m-4 text-center bg-white shadow-md hover:shadow-lg"
+                className="px-10 py-5 m-4 bg-white shadow-md hover:shadow-lg"
               >
                 <h3 className="text-xl font-bold lg:text-2xl">
                   Anonymous User

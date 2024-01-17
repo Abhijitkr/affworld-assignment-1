@@ -82,7 +82,7 @@ export default function ForgotPassword() {
               {error && <p className="text-red-500">{error}</p>}
             </div>
             <button
-              className="w-full mt-2 bg-[#18181B] text-white py-2 rounded-md"
+              className="w-full mt-2 bg-[#18181B] hover:bg-[#2c2c31] text-white py-2 rounded-md"
               type="submit"
             >
               Reset Password
