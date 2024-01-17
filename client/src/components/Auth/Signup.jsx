@@ -42,7 +42,7 @@ export default function Signup() {
   }
 
   return (
-    <div className="mx-auto max-w-[350px] space-y-6 flex flex-col justify-center h-screen p-5">
+    <div className="mx-auto max-w-[400px] space-y-6 flex flex-col justify-center h-screen p-5">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Sign Up</h1>
         <p className="text-gray-500 ">
@@ -138,7 +138,10 @@ export default function Signup() {
         <div className="my-5 text-center">
           <p className="text-gray-500 ">
             Already a user?{" "}
-            <Link to="/login" className="text-blue-500 hover:text-blue-700">
+            <Link
+              to="/login"
+              className="text-blue-500 underline hover:text-blue-700"
+            >
               Login
             </Link>
           </p>

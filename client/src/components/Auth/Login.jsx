@@ -78,7 +78,15 @@ export default function Login() {
             )}
           </div>
           <div className="space-y-2">
-            <label htmlFor="password">Password</label>
+            <div className="flex justify-between">
+              <label htmlFor="password">Password</label>
+              <Link
+                to="/forgotPassword"
+                className="text-sm text-blue-500 underline hover:text-blue-700"
+              >
+                Forgot Password?
+              </Link>
+            </div>
             <input
               id="password"
               required
@@ -110,7 +118,10 @@ export default function Login() {
         <div className="my-5 text-center">
           <p className="text-gray-500">
             New User?{" "}
-            <Link className="text-blue-500 hover:text-blue-700 " to="/signup">
+            <Link
+              className="text-blue-500 underline hover:text-blue-700"
+              to="/signup"
+            >
               Register
             </Link>
           </p>
