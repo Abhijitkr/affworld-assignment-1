@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GlobalContext } from "../../context";
 import { useForm } from "react-hook-form";
 
 export default function SecretInput() {
-  const { fetchListOfSecrets } = useContext(GlobalContext);
+  const { fetchListOfSecrets, user } = useContext(GlobalContext);
 
   const {
     register,
@@ -12,7 +12,13 @@ export default function SecretInput() {
     reset,
   } = useForm();
 
-  async function handleSaveSecret(secret) {
+  async function handleSaveSecret(content) {
+    const secret = {
+      title: content.title,
+      description: content.description,
+      userId: user._id,
+    };
+
     try {
       const response = await fetch("http://localhost:5000/api/secrets/add", {
         method: "POST",
@@ -26,7 +32,6 @@ export default function SecretInput() {
           title: "",
           description: "",
         });
-
         fetchListOfSecrets();
       } else {
         const error = await response.json();

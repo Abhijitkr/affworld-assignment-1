@@ -19,29 +19,38 @@ const fetchSecrets = async (req, res) => {
 
 //add a new secret
 const addSecret = async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description, userId, content } = req.body;
   const currentDate = new Date();
+
+  // checking if user already has a secret
+  const existingSecret = await Secret.findOne({ userId });
+
+  if (existingSecret) {
+    return res.status(400).json({ message: "You already have a secret" });
+  }
 
   const newSecret = new Secret({
     title,
     description,
+    userId,
+    content,
     date: currentDate,
   });
 
   try {
     await newSecret.save();
   } catch (e) {
-    console.log(e);
-  }
-
-  try {
-    const session = await mongoose.startSession();
-    session.startTransaction();
-    await newSecret.save(session);
-    session.commitTransaction();
-  } catch (e) {
     return res.status(500).json({ message: e });
   }
+
+  // try {
+  //   const session = await mongoose.startSession();
+  //   session.startTransaction();
+  //   await newSecret.save(session);
+  //   session.commitTransaction();
+  // } catch (e) {
+  //   return res.status(500).json({ message: e });
+  // }
 
   return res.status(201).json({ newSecret });
 };
