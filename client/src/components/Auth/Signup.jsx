@@ -135,10 +135,10 @@ export default function Signup() {
             Sign Up
           </button>
         </form>
-        <div className="my-2 text-center">
+        <div className="my-5 text-center">
           <p className="text-gray-500 ">
             Already a user?{" "}
-            <Link to="/login" className="text-blue-500 hover:text-blue-700 ">
+            <Link to="/login" className="text-blue-500 hover:text-blue-700">
               Login
             </Link>
           </p>
