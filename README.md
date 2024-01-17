@@ -10,11 +10,31 @@ This MERN (MongoDB, Express.js, React.js, Node.js) stack project aims to provide
 
 - Implemented a secure authentication system that included user registration, login, and password recovery functionalities using JWT Tokens.
 
+### Sign Up Page
+
+![Sign Up](./screen-shots/signup.png)
+
+### Login Page
+
+![Login](./screen-shots/login.png)
+
+### Forgot Password Page
+
+![Forgot Password](./screen-shots/forgot-password.png)
+
+### Reset Password Page
+
+![Reset Password](./screen-shots/reset-password.png)
+
 ### 2. Secrets Posting Section
 
 - Designed a user-friendly home screen featuring a section for posting secrets.
 - Allows each user to share one secret message.
 - Displays secrets shared by other users without revealing the identity of the person sharing it.
+
+### Home Page
+
+![Home](./screen-shots/home.png)
 
 ### 3. Responsiveness Across Devices
 
@@ -38,12 +58,12 @@ This MERN (MongoDB, Express.js, React.js, Node.js) stack project aims to provide
 1. Clone the repository.
 2. Navigate to the project directory Frontend/Backend.
 
-**Frontend:**
+**Client Side:**
 
 - Install dependencies using `npm install`.
 - Run `npm run dev` to start the react frontend.
 
-**Backend:**
+**Server Side:**
 
 - Install dependencies using `npm install`.
 - Set up environment variables in Backend :-
