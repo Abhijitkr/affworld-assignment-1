@@ -4,7 +4,7 @@ import { GlobalContext } from "../../context";
 import { useContext, useState } from "react";
 
 export default function Login() {
-  const { storeTokenInLS } = useContext(GlobalContext);
+  const { storeTokenInLS, fetchListOfSecrets } = useContext(GlobalContext);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ export default function Login() {
   async function checkUser(user) {
     // console.log(user);
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,6 +33,7 @@ export default function Login() {
           password: "",
         });
         setError(null);
+        fetchListOfSecrets();
         navigate("/");
       } else {
         const err = await response.json();

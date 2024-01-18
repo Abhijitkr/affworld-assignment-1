@@ -13,6 +13,7 @@ export default function ResetPassword() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   async function resetPassword(data) {
     try {
       const response = await fetch(
@@ -25,6 +26,7 @@ export default function ResetPassword() {
           body: JSON.stringify(data),
         }
       );
+
       if (response.ok) {
         const result = await response.json();
 
@@ -55,6 +57,7 @@ export default function ResetPassword() {
             noValidate
             onSubmit={handleSubmit((data, e) => {
               e.preventDefault();
+
               resetPassword(data);
             })}
           >

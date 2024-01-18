@@ -12,19 +12,19 @@ This MERN (MongoDB, Express.js, React.js, Node.js) stack project aims to provide
 
 ### Sign Up Page
 
-![Sign Up](./screen-shots/signup.png)
+![Sign Up](./screens/signup.png)
 
 ### Login Page
 
-![Login](./screen-shots/login.png)
+![Login](./screens/login.png)
 
 ### Forgot Password Page
 
-![Forgot Password](./screen-shots/forgot-password.png)
+![Forgot Password](./screens/forgot-password.png)
 
 ### Reset Password Page
 
-![Reset Password](./screen-shots/reset-password.png)
+![Reset Password](./screens/reset-password.png)
 
 ### 2. Secrets Posting Section
 
@@ -34,7 +34,7 @@ This MERN (MongoDB, Express.js, React.js, Node.js) stack project aims to provide
 
 ### Home Page
 
-![Home](./screen-shots/home.png)
+![Home](./screens/home.png)
 
 ### 3. Responsiveness Across Devices
 
