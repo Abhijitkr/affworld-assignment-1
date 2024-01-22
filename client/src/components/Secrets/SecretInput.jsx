@@ -1,15 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 export default function SecretInput() {
-  const { fetchListOfSecrets, user } = useContext(GlobalContext);
+  const { fetchListOfSecrets, user, selectedSecret, setSelectedSecret } =
+    useContext(GlobalContext);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
     reset,
   } = useForm();
 
@@ -44,6 +46,51 @@ export default function SecretInput() {
     }
   }
 
+  function populateFields() {
+    if (selectedSecret) {
+      setValue("title", selectedSecret.title);
+      setValue("description", selectedSecret.description);
+    }
+  }
+
+  async function handleEdit(content) {
+    try {
+      const response = await fetch(
+        `/api/secrets/update/${selectedSecret._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            title: content.title,
+            description: content.description,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        fetchListOfSecrets();
+        toast.success("Secret Edited");
+        reset({
+          title: "",
+          description: "",
+        });
+        setSelectedSecret(null);
+      } else {
+        const error = await response.json();
+        toast.error(error.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    populateFields();
+  }, [selectedSecret]);
+
   return (
     <div className="container px-4 md:px-6">
       <div className="space-y-2 text-center ">
@@ -62,7 +109,7 @@ export default function SecretInput() {
         noValidate
         onSubmit={handleSubmit((data, e) => {
           e.preventDefault();
-          handleSaveSecret(data);
+          selectedSecret ? handleEdit(data) : handleSaveSecret(data);
         })}
       >
         <div className="flex flex-col w-full max-w-md gap-2">

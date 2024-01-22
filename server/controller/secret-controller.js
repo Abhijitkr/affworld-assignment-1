@@ -43,26 +43,17 @@ const addSecret = async (req, res) => {
     return res.status(500).json({ message: e });
   }
 
-  // try {
-  //   const session = await mongoose.startSession();
-  //   session.startTransaction();
-  //   await newSecret.save(session);
-  //   session.commitTransaction();
-  // } catch (e) {
-  //   return res.status(500).json({ message: e });
-  // }
-
   return res.status(201).json({ newSecret });
 };
 
-//delete a blog
+//delete a secret
 const deleteSecret = async (req, res) => {
   const id = req.params.id;
 
   try {
     const findCurrentSecret = await Secret.findByIdAndDelete(id);
     if (!findCurrentSecret) {
-      return res.status(404).json({ message: "Blog not found" });
+      return res.status(404).json({ message: "Secret not found" });
     }
     return res.status(200).json({ message: "Successfully Deleted" });
   } catch (e) {
@@ -73,7 +64,7 @@ const deleteSecret = async (req, res) => {
   }
 };
 
-//update a blog
+//update a secret
 const updateSecret = async (req, res) => {
   const id = req.params.id;
 

@@ -7,6 +7,7 @@ export default function GlobalState({ children }) {
   const [pending, setPending] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState({});
+  const [selectedSecret, setSelectedSecret] = useState(null);
   let isLoggedIn = !!token;
 
   async function fetchListOfSecrets() {
@@ -70,6 +71,9 @@ export default function GlobalState({ children }) {
         handleLogout,
         isLoggedIn,
         user,
+
+        selectedSecret,
+        setSelectedSecret,
       }}
     >
       {children}
