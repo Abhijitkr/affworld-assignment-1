@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ForgotPassword() {
-  const [mailSent, setMailSent] = useState(false);
-  const [error, setError] = useState("");
-
   const {
     register,
     handleSubmit,
@@ -13,7 +10,6 @@ export default function ForgotPassword() {
   } = useForm();
 
   async function handleForgotPassword(data) {
-    console.log(data);
     try {
       const response = await fetch("/api/auth/forgotPassword", {
         method: "POST",
@@ -26,13 +22,11 @@ export default function ForgotPassword() {
         const result = await response.json();
 
         if (result.message === "Email Sent") {
-          setMailSent(true);
-          setError(null);
+          toast.success("Email Sent");
         } else if (result.error === "Email not found") {
-          setError(result.error);
-          setMailSent(false);
+          toast.error("Email not found");
         }
-        console.log("Success:", result);
+        // console.log("Success:", result);
       }
     } catch (e) {
       console.error("Error:", e);
@@ -75,8 +69,6 @@ export default function ForgotPassword() {
               {errors.email && (
                 <p className="text-red-500">{errors.email.message}</p>
               )}
-              {mailSent && <p className="text-green-500">Mail Sent</p>}
-              {error && <p className="text-red-500">{error}</p>}
             </div>
             <button
               className="w-full mt-2 bg-[#18181B] hover:bg-[#2c2c31] text-white py-2 rounded-md"

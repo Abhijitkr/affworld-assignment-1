@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context";
+import { toast } from "react-toastify";
 
 export default function Signup() {
   const { storeTokenInLS } = useContext(GlobalContext);
@@ -31,10 +32,12 @@ export default function Signup() {
           email: "",
           password: "",
         });
+        toast.success("User registered successfully");
         navigate("/");
       } else {
         const error = await response.json();
-        console.log(error.msg);
+        toast.error(error.msg);
+        // console.log(error.msg);
       }
     } catch (error) {
       console.log("register", error);

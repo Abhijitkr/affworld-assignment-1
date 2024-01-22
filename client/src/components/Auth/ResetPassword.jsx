@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ResetPassword() {
   const query = new URLSearchParams(window.location.search);
   const token = query.get("token");
   const email = query.get("email");
-  const [error, setError] = useState(null);
-  const [passwordReset, setPasswordReset] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -31,13 +31,14 @@ export default function ResetPassword() {
         const result = await response.json();
 
         if (result.msg === "Password reset successful") {
-          setPasswordReset(true);
-          setError(null);
+          toast.success("Password reset successful");
         } else if (result.msg === "User Not Found") {
-          setError(result.msg);
-          setPasswordReset(false);
+          toast.error("User not found");
         } else console.log("Success:", result);
-      } else console.log("Wrong token", response);
+      } else {
+        toast.error("Wrong token");
+        // console.log("Wrong token", response);
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -98,10 +99,7 @@ export default function ResetPassword() {
                 <p className="text-red-500">{errors.confirmPassword.message}</p>
               )}
             </div>
-            {passwordReset && (
-              <p className="text-green-500">Password Reset Successful</p>
-            )}
-            {error && <p className="text-red-500">{error}</p>}
+
             <button
               className="w-full mt-2 bg-[#18181B] hover:bg-[#2c2c31] text-white py-2 rounded-md"
               type="submit"

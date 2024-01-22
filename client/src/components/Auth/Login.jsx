@@ -1,11 +1,11 @@
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context";
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const { storeTokenInLS, fetchListOfSecrets } = useContext(GlobalContext);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const {
@@ -16,9 +16,8 @@ export default function Login() {
   } = useForm();
 
   async function checkUser(user) {
-    // console.log(user);
     try {
-      const response = await fetch("api/auth/login", {
+      const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,18 +31,19 @@ export default function Login() {
           email: "",
           password: "",
         });
-        setError(null);
+        toast.success("Login Success");
         fetchListOfSecrets();
         navigate("/");
       } else {
         const err = await response.json();
-        setError(err.msg);
-        console.log(err);
+        toast.error(err.msg);
+        // console.log(err);
       }
     } catch (e) {
-      console.log("login", e);
+      console.log("Login", e);
     }
   }
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-50 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-[400px] space-y-6 flex flex-col justify-center bg-white shadow-lg p-5">
@@ -111,7 +111,6 @@ export default function Login() {
               {errors.password && (
                 <p className="text-red-500">{errors.password.message}</p>
               )}
-              {error && <p className="text-red-500">{error}</p>}
             </div>
             <button
               className="w-full mt-2 bg-[#18181B] hover:bg-[#2c2c31] text-white py-2 rounded-md"

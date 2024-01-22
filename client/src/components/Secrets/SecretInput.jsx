@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { GlobalContext } from "../../context";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function SecretInput() {
   const { fetchListOfSecrets, user } = useContext(GlobalContext);
-  const [exhaustedSecret, setExhaustedSecret] = useState(null);
 
   const {
     register,
@@ -33,12 +33,11 @@ export default function SecretInput() {
           title: "",
           description: "",
         });
-        setExhaustedSecret(null);
         fetchListOfSecrets();
+        toast.success("Your Secret Added");
       } else {
         const error = await response.json();
-        setExhaustedSecret(error.message);
-        console.log(error);
+        toast.error(error.message);
       }
     } catch (error) {
       console.log(error);
@@ -94,9 +93,6 @@ export default function SecretInput() {
               <p className="mx-2 text-red-500 text-start">
                 {errors.description.message}
               </p>
-            )}
-            {exhaustedSecret && (
-              <p className="mx-2 text-red-500 text-start">{exhaustedSecret}</p>
             )}
           </div>
 

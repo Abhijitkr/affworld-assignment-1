@@ -13,12 +13,14 @@ app.use(cors());
 app.use(express.json());
 
 app.use(express.static(path.resolve(__dirname, "dist")));
+
 app.use("/api/auth", authRouter);
 app.use("/api/secrets", secretRouter);
 
 // app.use("/api", (req, res) => {
 //   res.send("Hello World");
 // });
+
 app.get("*", (req, res) => res.sendFile(path.resolve("dist", "index.html")));
 
 app.use(errorMiddleware);
