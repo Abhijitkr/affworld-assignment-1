@@ -23,7 +23,6 @@ export default function GlobalState({ children }) {
       console.log(error);
       setPending(false);
     }
-    console.log(secretList);
   }
 
   //TODO: Adds Edit and Delete functionality

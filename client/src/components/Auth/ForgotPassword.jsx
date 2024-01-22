@@ -11,27 +11,62 @@ export default function ForgotPassword() {
 
   async function handleForgotPassword(data) {
     try {
-      const response = await fetch("/api/auth/forgotPassword", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      toast.promise(handleAsyncOperation(data), {
+        pending: "Sending email...",
+        success: "Email Sent",
+        error: "Email not found",
       });
-      if (response.ok) {
-        const result = await response.json();
-
-        if (result.message === "Email Sent") {
-          toast.success("Email Sent");
-        } else if (result.error === "Email not found") {
-          toast.error("Email not found");
-        }
-        // console.log("Success:", result);
-      }
     } catch (e) {
       console.error("Error:", e);
+      toast.error("An error occurred while processing your request");
     }
   }
+
+  async function handleAsyncOperation(data) {
+    const response = await fetch("/api/auth/forgotPassword", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+
+      if (result.message === "Email Sent") {
+        return result;
+      } else if (result.error === "Email not found") {
+        throw new Error("Email not found");
+      }
+    }
+
+    throw new Error("An error occurred while processing your request");
+  }
+
+  // async function handleForgotPassword(data) {
+  //   try {
+  //     const response = await fetch("/api/auth/forgotPassword", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+  //     if (response.ok) {
+  //       const result = await response.json();
+
+  //       if (result.message === "Email Sent") {
+  //         toast.success("Email Sent");
+  //       } else if (result.error === "Email not found") {
+  //         toast.error("Email not found");
+  //       }
+  //       // console.log("Success:", result);
+  //     }
+  //   } catch (e) {
+  //     console.error("Error:", e);
+  //   }
+  // }
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-50 sm:px-6 lg:px-8">
