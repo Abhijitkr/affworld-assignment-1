@@ -66,11 +66,7 @@ This MERN (MongoDB, Express.js, React.js, Node.js) stack project aims to provide
 **Server Side:**
 
 - Install dependencies using `npm install`.
-- Set up environment variables in Backend :-
-  - PORT
-  - MONGODB_URI
-  - JWT_SECRET_KEY
-  - MAIL_PASSWORD (Gmail for App Use password)
+- Set up environment variables in Backend (Provided .env.example file)
 - Run `npm start` to start the development server with Nodemon.
 - Run `mongod --dbpath <data location>` to start mongodb database locally, don't forget to create the empty data folder before.
 
