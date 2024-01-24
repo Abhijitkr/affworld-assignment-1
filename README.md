@@ -4,6 +4,8 @@
 
 This MERN (MongoDB, Express.js, React.js, Node.js) stack project aims to provide a platform for users to share secrets anonymously. It includes key functionalities.
 
+## 📹 Watch the Demo [SecretSphere Demo](https://youtu.be/OM358TpRwMo)
+
 ## Key Functionalities
 
 ### 1. User Authentication System
