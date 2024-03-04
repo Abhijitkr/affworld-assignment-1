@@ -1,8 +1,8 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { GlobalContext } from "../../context";
-import { useContext } from "react";
 import { toast } from "react-toastify";
+import { GlobalContext } from "../../context";
 
 export default function Login() {
   const { storeTokenInLS, fetchListOfSecrets } = useContext(GlobalContext);
@@ -117,6 +117,18 @@ export default function Login() {
               type="submit"
             >
               Login
+            </button>
+            <button
+              className="w-full mt-2 bg-[#606079] hover:bg-[#2c2c31] text-white py-2 rounded-md"
+              type="button"
+              onClick={() => {
+                checkUser({
+                  email: "test@gmail.com",
+                  password: "Test@123",
+                });
+              }}
+            >
+              Login as Guest
             </button>
           </form>
           <div />
